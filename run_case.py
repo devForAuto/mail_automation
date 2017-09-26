@@ -15,7 +15,7 @@ import time
 
 
 if __name__ == '__main__':
-    now = time.strftime("%Y-%m-%d %H:%M:%S")
+    now = time.strftime("%Y-%m-%d %H-%M-%S")
     filename = './report/' + now + 'result.html'
     print(filename)
     fp = open(filename, 'wb')
