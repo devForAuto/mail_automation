@@ -50,8 +50,8 @@ def getRandomStrIntLineChine(length):
         code_list.append(chr(i))
     for i in range(97, 123):  # a-z
         code_list.append(chr(i))
-    for i in range(0x4E00, 0x9FA5):
-        code_list.append(chr(i))
+    # for i in range(0x4E00, 0x9FA5):
+    #     code_list.append(chr(i))
     code_list.append(chr(95))
     splice = random.sample(code_list, length)
     return ''.join(splice)
@@ -93,8 +93,8 @@ def Unicode(length):
     splice = random.sample(code_list, length)
     return ''.join(splice)
 
-# for i in range(1000):
+for i in range(100):
 #     # print(getRandomStr(9))
 #     # print(getRandomStrIntLine(9))
-#     # print(getRandomUpperStr(9))
+    print(getRandomStrIntLineChine(9))
 #     print(Unicode(10))

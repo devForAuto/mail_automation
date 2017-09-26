@@ -36,14 +36,14 @@ class MailBusinessConfig(Page):
         sleep(1)
         self.find_element(*self.busi_cfg_note_tree_loc).click()
 
-    def busi_cfg_search(self):
+    def busi_cfg_search(self, sName=''):
         self.find_element(*self.mail_config_note_tree_loc).click()
         sleep(1)
         self.find_element(*self.busi_cfg_note_tree_loc).click()
         sleep(1)
         self.switch_frame(self.busi_cfg_home_frame_loc)
+        self.find_element(*self.busi_cfg_search_name_loc).send_keys(sName)
         sleep(3)
-        self.find_element(*self.busi_cfg_search_name_loc).send_keys("电子发票业务名称测试")
         self.find_element(*self.busi_cfg_search_btn_loc).click()
 
     def busi_cfg_add(self, name='ywbm', code='1256'):

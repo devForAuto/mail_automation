@@ -15,22 +15,24 @@ from util import randomUtil
 
 class BusinessConfig(unittest.TestCase):
     dr = is_login()
-
+    BUSICODE = randomUtil.getRandomStrIntLineChine(8)
     def setUp(self, driver=dr):
         self.driver = driver
         self.home = MailBusinessConfig(self.driver)
 
     def test_0001_busi_cfg_home(self):
         print(self.driver)
-        # MailBusinessConfig(self.driver).busi_cfg_home()
         self.home.busi_cfg_home()
 
-        self.home.busi_cfg_search()
+    def test_0002_busi_cfg_search(self):
+        self.home.busi_cfg_add(name=self.BUSICODE, code=randomUtil.getRandomInt(5))
+        self.driver.refresh()
+        self.home.busi_cfg_search(self.BUSICODE)
 
-    def test_0003_busi_cfg_add(self):
-        print(self.driver)
-        """添加页面"""
-        self.home.busi_cfg_add(name=randomUtil.getRandomStr(4), code=randomUtil.getRandomInt(5))
+    # def test_0003_busi_cfg_add(self):
+    #     print(self.driver)
+    #     """添加页面"""
+    #     self.home.busi_cfg_add(name=randomUtil.getRandomStr(4), code=randomUtil.getRandomInt(5))
 
     # def test_0004_busi_cfg_add_child(self):
         """添加子业务"""
