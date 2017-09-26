@@ -25,7 +25,6 @@ class BusinessConfig(unittest.TestCase):
         # MailBusinessConfig(self.driver).busi_cfg_home()
         self.home.busi_cfg_home()
 
-    def test_0002_busi_cfg_search(self):
         self.home.busi_cfg_search()
 
     def test_0003_busi_cfg_add(self):
