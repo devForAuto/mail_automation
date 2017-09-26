@@ -10,7 +10,7 @@
 """
 import random
 
-
+# 固定随机数字
 def getRandomInt(length):
     code_list = []
     for i in range(10):  # 0-9数字
@@ -18,7 +18,7 @@ def getRandomInt(length):
     splice = random.sample(code_list, length)
     return int(''.join(splice))
 
-
+# 固定长度随机大小写字母
 def getRandomStr(length):
     code_list = []
     for i in range(65, 91):  # A-Z
@@ -28,7 +28,7 @@ def getRandomStr(length):
     splice = random.sample(code_list, length)
     return ''.join(splice)
 
-
+# 固定长度大写字母
 def getRandomUpperStr(length):
     code_list = []
     for i in range(65, 91):  # A-Z
