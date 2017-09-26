@@ -18,19 +18,22 @@ class BusinessConfig(unittest.TestCase):
 
     def setUp(self, driver=dr):
         self.driver = driver
-        home = MailBusinessConfig(self.driver)
+        self.home = MailBusinessConfig(self.driver)
 
     def test_0001_busi_cfg_home(self):
-        MailBusinessConfig(self.driver).busi_cfg_home()
+        print(self.driver)
+        # MailBusinessConfig(self.driver).busi_cfg_home()
+        self.home.busi_cfg_home()
 
-    # def test_0002_busi_cfg_search(self):
-    #     MailBusinessConfig(self.driver).busi_cfg_search()
+    def test_0002_busi_cfg_search(self):
+        self.home.busi_cfg_search()
 
     def test_0003_busi_cfg_add(self):
+        print(self.driver)
         """添加页面"""
-        MailBusinessConfig(self.driver).busi_cfg_add()
+        self.home.busi_cfg_add(name='9854', code='5621')
 
-    def test_0004_busi_cfg_add_child(self):
+    # def test_0004_busi_cfg_add_child(self):
         """添加子业务"""
 
     def tearDown(self):

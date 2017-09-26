@@ -46,15 +46,15 @@ class MailBusinessConfig(Page):
         self.find_element(*self.busi_cfg_search_name_loc).send_keys("电子发票业务名称测试")
         self.find_element(*self.busi_cfg_search_btn_loc).click()
 
-    def busi_cfg_add(self):
+    def busi_cfg_add(self, name='ywbm', code='1256'):
         self.busi_cfg_home()
         self.switch_frame(self.busi_cfg_home_frame_loc)
         self.find_element(*self.busi_cfg_add_loc).click()
         self.switch_frame_default()
         self.find_element(*self.busi_cfg_add_name_loc).clear()
-        self.find_element(*self.busi_cfg_add_name_loc).send_keys("ywbm")
+        self.find_element(*self.busi_cfg_add_name_loc).send_keys(name)
         self.find_element(*self.busi_cfg_add_key).clear()
-        self.find_element(*self.busi_cfg_add_key).send_keys('1252')
+        self.find_element(*self.busi_cfg_add_key).send_keys(code)
         sleep(2)
         self.find_element(*self.busi_cfg_add_okBtn).click()
 
