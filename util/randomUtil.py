@@ -10,12 +10,12 @@
 """
 import random
 
-nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-uppChars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+_nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+_uppChars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-lowChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+_lowChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-allChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+_allChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -37,7 +37,7 @@ def getRandomInt(length):
 def getRandomStr(length):
     chars = []
     for i in range(length):
-        chars.append(random.choice(uppChars + lowChars))
+        chars.append(random.choice(_uppChars + _lowChars))
     return ''.join(chars)
 
 
@@ -45,7 +45,7 @@ def getRandomStr(length):
 def getRandomUpperStr(length):
     chars = []
     for i in range(length):
-        chars.append(random.choice(uppChars))
+        chars.append(random.choice(_uppChars))
     return ''.join(chars)
 
 
@@ -89,7 +89,7 @@ def getRandomStrIntLine(length):
 def getRandomStrInt(length):
     code_list = []
     for i in range(length):
-        code_list.append(random.choice(nums+uppChars+lowChars))
+        code_list.append(random.choice(_nums+_uppChars+_lowChars))
     return ''.join(code_list)
 
 
@@ -106,9 +106,9 @@ def Unicode(length):
     splice = random.sample(code_list, length)
     return ''.join(splice)
 
-
-for i in range(20):
-    #     # print(getRandomStr(9))
-    #     # print(getRandomStrIntLine(9))
-    print(getRandomStrInt(4))
-# print(Unicode(10))
+#
+# for i in range(1):
+#     #     # print(getRandomStr(9))
+#     #     # print(getRandomStrIntLine(9))
+#     print(getRandomStrInt(40))
+# # print(Unicode(10))
