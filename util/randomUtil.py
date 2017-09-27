@@ -52,8 +52,11 @@ def getRandomUpperStr(length):
 # 大写字母数字
 def getRandomUpperInt(length):
     chars = []
-    for i in range(length):
+    for i in range(length - 1):
         chars.append(random.choice(_uppChars + _nums))
+    chars.append(str(random.randint(0,9)))
+    # print(chars)
+    random.shuffle(chars)
     return ''.join(chars)
 
 

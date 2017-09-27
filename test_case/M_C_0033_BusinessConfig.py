@@ -21,19 +21,21 @@ class BusinessConfig(unittest.TestCase):
         self.home = MailBusinessConfig(self.driver)
 
     def test_0001_busi_cfg_home(self):
+        """业务配置主页面"""
         self.home.busi_cfg_home()
 
     def test_0002_busi_cfg_search(self):
+        """业务配置查询"""
         self.home.busi_cfg_add(name=self.BUSICODE, code=randomUtil.getRandomInt(5))
         self.driver.refresh()
         self.home.busi_cfg_search(self.BUSICODE)
 
     def test_0003_busi_cfg_add(self):
-        """添加页面"""
+        """业务配置添加"""
         self.home.busi_cfg_add(name=randomUtil.getRandomUpperStr(50), code=randomUtil.getRandomInt(20))
 
     def test_0004_busi_cfg_add_child(self):
-        """添加子业务"""
+        """业务配置添加子业务"""
         self.home.busi_cfg_add_child(name=randomUtil.getRandomStr(5),keys=randomUtil.getRandomInt(5))
 
     def tearDown(self):
