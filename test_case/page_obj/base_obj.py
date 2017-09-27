@@ -9,6 +9,7 @@
 
 """
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 
@@ -37,6 +38,13 @@ class Page(object):
             return self.driver.find_element(*loc)
         except:
             print(u"%s 页面中未能找到 %s 元素" % (self, loc))
+
+    #下拉框
+    def select(self,*loc):
+        try:
+            return Select(self.find_element(*loc))
+        except:
+            print(u"%s 页面中未能找到 %s 元素" % (self, *loc))
 
     def page_source(self):
         return self.driver.page_source
