@@ -15,7 +15,7 @@ from util import randomUtil
 
 class BusinessConfig(unittest.TestCase):
     dr = is_login()
-    BUSICODE = randomUtil.getRandomStrIntLineChine(8)
+    BUSICODE = randomUtil.getRandomStrIntLineChine(10)
     def setUp(self, driver=dr):
         self.driver = driver
         self.home = MailBusinessConfig(self.driver)
@@ -24,18 +24,18 @@ class BusinessConfig(unittest.TestCase):
         print(self.driver)
         self.home.busi_cfg_home()
 
-    def test_0002_busi_cfg_search(self):
-        self.home.busi_cfg_add(name=self.BUSICODE, code=randomUtil.getRandomInt(5))
-        self.driver.refresh()
-        self.home.busi_cfg_search(self.BUSICODE)
+    # def test_0002_busi_cfg_search(self):
+    #     self.home.busi_cfg_add(name=self.BUSICODE, code=randomUtil.getRandomInt(5))
+    #     self.driver.refresh()
+    #     self.home.busi_cfg_search(self.BUSICODE)
 
-    # def test_0003_busi_cfg_add(self):
-    #     print(self.driver)
-    #     """添加页面"""
-    #     self.home.busi_cfg_add(name=randomUtil.getRandomStr(4), code=randomUtil.getRandomInt(5))
+    def test_0003_busi_cfg_add(self):
+        print(self.driver)
+        """添加页面"""
+        self.home.busi_cfg_add(name=randomUtil.getRandomUpperStr(50), code=randomUtil.getRandomInt(20))
 
     # def test_0004_busi_cfg_add_child(self):
-        """添加子业务"""
+    #     """添加子业务"""
 
     def tearDown(self):
         self.driver.refresh()

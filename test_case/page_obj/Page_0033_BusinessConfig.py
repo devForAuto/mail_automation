@@ -55,7 +55,7 @@ class MailBusinessConfig(Page):
         self.find_element(*self.busi_cfg_add_name_loc).send_keys(name)
         self.find_element(*self.busi_cfg_add_key).clear()
         self.find_element(*self.busi_cfg_add_key).send_keys(code)
-        sleep(2)
+        sleep(10)
         self.find_element(*self.busi_cfg_add_okBtn).click()
 
     def busi_cfg_add_child(self):
