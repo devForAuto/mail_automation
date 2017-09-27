@@ -99,8 +99,10 @@ def getRandomStrIntLine(length):
 # 字母数字组合
 def getRandomStrInt(length):
     code_list = []
-    for i in range(length):
+    for i in range(length - 1):
         code_list.append(random.choice(_nums + _uppChars + _lowChars))
+    code_list.append(str(random.randint(0,9)))
+    random.shuffle(code_list)
     return ''.join(code_list)
 
 
@@ -118,8 +120,9 @@ def Unicode(length):
     return ''.join(splice)
 
 #
-# for i in range(10):
+# for i in range(100):
 #     #     # print(getRandomStr(9))
 #     #     # print(getRandomStrIntLine(9))
-#     print(getRandomUpperInt(10))
-# # print(Unicode(10))
+#     print(getRandomStrInt(8))
+
+# print(Unicode(10))
