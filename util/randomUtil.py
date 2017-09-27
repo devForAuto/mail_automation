@@ -12,15 +12,15 @@ import random
 
 _nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 _uppChars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 _lowChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 _allChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            '!', '@', '#', '$', '%', '^', '&', '*', '-', '_', '=', '+', '1',
-            '2', '3', '4', '5', '6', '7', '8', '9', '0', ' ']
+             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+             '!', '@', '#', '$', '%', '^', '&', '*', '-', '_', '=', '+', '1',
+             '2', '3', '4', '5', '6', '7', '8', '9', '0', ' ']
 
 
 # 固定随机数字
@@ -46,6 +46,14 @@ def getRandomUpperStr(length):
     chars = []
     for i in range(length):
         chars.append(random.choice(_uppChars))
+    return ''.join(chars)
+
+
+# 大写字母数字
+def getRandomUpperInt(length):
+    chars = []
+    for i in range(length):
+        chars.append(random.choice(_uppChars + _nums))
     return ''.join(chars)
 
 
@@ -89,7 +97,7 @@ def getRandomStrIntLine(length):
 def getRandomStrInt(length):
     code_list = []
     for i in range(length):
-        code_list.append(random.choice(_nums+_uppChars+_lowChars))
+        code_list.append(random.choice(_nums + _uppChars + _lowChars))
     return ''.join(code_list)
 
 
@@ -107,8 +115,8 @@ def Unicode(length):
     return ''.join(splice)
 
 #
-# for i in range(1):
+# for i in range(10):
 #     #     # print(getRandomStr(9))
 #     #     # print(getRandomStrIntLine(9))
-#     print(getRandomStrInt(40))
+#     print(getRandomUpperInt(10))
 # # print(Unicode(10))
