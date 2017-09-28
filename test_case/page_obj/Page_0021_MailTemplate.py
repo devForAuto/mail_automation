@@ -37,12 +37,18 @@ class MailTemplatePage(Page):
     template_page_add_pc_edit_frame_loc = ""
     template_page_add_pc_edit_loc = (
         By.CSS_SELECTOR, ".cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders")
-    template_page_add_pc_next_loc = (By.XPATH, ".//*[@id='J_form_activity']/div[3]/div[3]/a[2]")
+    template_page_add_pc_next_loc = (By.CSS_SELECTOR, '.normalBtn.BGblue.largeBtn:nth-child(2)')
     template_page_add_h5_edit_frame_class_loc = (By.CSS_SELECTOR, ".cke_wysiwyg_frame.cke_reset")
     template_page_add_h5_edit_frame_loc = ""
     template_page_add_h5_edit_loc = (
         By.CSS_SELECTOR, ".cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders")
     template_page_add_h5_save_loc = (By.XPATH, ".//*[@id='J_form_activity']/div[2]/div[3]/a[2]")
+    # 搜索
+    template_page_search_name_loc = (By.CSS_SELECTOR, '.inputText.selectwidth.templetName')
+    template_page_search_btn_loc = (By.LINK_TEXT, '查询')
+    # 审核
+    template_page_review_btn_loc = (By.LINK_TEXT, '审核')
+    template_page_review_pass_loc = (By.CSS_SELECTOR, '.normalBtn.BGblue.largeBtn')
 
     def template_page_home(self):
         """模板配置主页面"""
@@ -50,14 +56,13 @@ class MailTemplatePage(Page):
         sleep(1)
         self.find_element(*self.template_page_node_tree_loc).click()
 
-    def template_page_add(self):
+    def template_page_add(self, name='自动化测试'):
         """新增模板"""
-        # self.find_element(*self.mail_config_node_tree_loc)
-        # self.find_element(*self.template_page_node_tree_loc)
+        self.template_page_home()
         self.switch_frame(self.template_page_frame_loc)
         self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
-        self.find_element(*self.template_page_add_templateName_loc).send_keys("自动化测试")
+        self.find_element(*self.template_page_add_templateName_loc).send_keys(name)
         Select(self.find_element(*self.template_page_add_type_loc)).select_by_value("F_DZPZ")
         Select(self.find_element(*self.template_page_add_child_type_loc)).select_by_value("S_C_DZPZ_03")
         self.find_element(*self.template_page_add_topicName_loc).clear()
@@ -78,10 +83,10 @@ class MailTemplatePage(Page):
         self.switch_frame(self.template_page_add_pc_edit_frame_loc)
         self.find_element(*self.template_page_add_pc_edit_loc).send_keys("自动化测试PC富文本编辑框内容输入")
         self.switch_parent_frame()
-        self.find_element(*self.template_page_add_pc_next_loc).click()
+        self.script("$(arguments[0]).click()", self.find_element(*self.template_page_add_pc_next_loc))
+        # # h5 页面
+        # # h5 模板富文本编辑
         sleep(2)
-        # h5 页面
-        # h5 模板富文本编辑
         self.template_page_add_h5_edit_frame_loc = self.find_element(*self.template_page_add_h5_edit_frame_class_loc)
         self.switch_frame(self.template_page_add_h5_edit_frame_loc)
         sleep(2)
@@ -90,24 +95,40 @@ class MailTemplatePage(Page):
         print(self.find_element(*self.template_page_add_h5_save_loc).text)
         save_btn = self.find_element(*self.template_page_add_h5_save_loc)
         self.script("$(arguments[0]).click()", save_btn)
+    def template_page_search(self, name=''):
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_search_name_loc).send_keys(name)
+        self.find_element(*self.template_page_search_btn_loc).click()
+
+    # 模板审核
+    def template_page_review(self,tmpName=''):
+        _name=tmpName
+        self.template_page_search(name=_name)
+        sleep(5)
+        self.find_element(*self.template_page_review_btn_loc).click()
+        self.script("$(arguments[0]).click()", self.find_element(*self.template_page_review_pass_loc))
+        # print(self.find_element(*self.template_page_review_pass_loc).text)
 
     # 页面字段校验提示
     template_page_add_name_error_hint = (By.CSS_SELECTOR, '#templet_name_error')
 
     def template_add_name_empty(self):
         """为空"""
+        self.template_page_home()
         sleep(1)
-        self.switch_frame_default()
         self.switch_frame(self.template_page_frame_loc)
         self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_next_loc).click()
         return self.find_element(*self.template_page_add_name_error_hint).text
 
-    def template_add_name_too_long(self):
+    def template_add_name_too_long(self, name='abcdefghijklmn'):
         """长度大于25字符"""
-
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
-        self.find_element(*self.template_page_add_templateName_loc).send_keys("abcdefghijklmnopqrstuvwxyz")
+        self.find_element(*self.template_page_add_templateName_loc).send_keys(name)
         self.find_element(*self.template_page_add_next_loc).click()
         return self.find_element(*self.template_page_add_name_error_hint).text
 
@@ -115,8 +136,11 @@ class MailTemplatePage(Page):
 
     def template_add_type_empty(self):
         """业务类型为空"""
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
-        self.find_element(*self.template_page_add_templateName_loc).send_keys("测试")
+        self.find_element(*self.template_page_add_templateName_loc).send_keys("adde")
         self.find_element(*self.template_page_add_next_loc).click()
         return self.find_element(*self.template_page_add_type_error_hint).text
 
@@ -124,6 +148,9 @@ class MailTemplatePage(Page):
 
     def template_add_child_type_empty(self):
         """子业务类型为空"""
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
         self.find_element(*self.template_page_add_templateName_loc).send_keys("测试")
         Select(self.find_element(*self.template_page_add_type_loc)).select_by_value("F_DZPZ")
@@ -134,6 +161,9 @@ class MailTemplatePage(Page):
 
     def template_add_topicName_empty(self):
         """邮件主题为空"""
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
         self.find_element(*self.template_page_add_templateName_loc).send_keys("测试")
         Select(self.find_element(*self.template_page_add_type_loc)).select_by_value("F_DZPZ")
@@ -143,6 +173,9 @@ class MailTemplatePage(Page):
 
     def template_add_topicName_too_long(self):
         """邮件主题超长"""
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
         self.find_element(*self.template_page_add_templateName_loc).send_keys("测试")
         Select(self.find_element(*self.template_page_add_type_loc)).select_by_value("F_DZPZ")
@@ -156,6 +189,9 @@ class MailTemplatePage(Page):
 
     def template_add_postEmail_empty(self):
         """邮件主题为空"""
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
         self.find_element(*self.template_page_add_templateName_loc).send_keys("测试")
         Select(self.find_element(*self.template_page_add_type_loc)).select_by_value("F_DZPZ")
@@ -168,6 +204,9 @@ class MailTemplatePage(Page):
     template_add_pc_empty_error_hint = (By.XPATH, ".//*[@id='content:D_msg2']")
 
     def template_add_pc_empty(self):
+        self.template_page_home()
+        self.switch_frame(self.template_page_frame_loc)
+        self.find_element(*self.template_page_add_loc).click()
         self.find_element(*self.template_page_add_templateName_loc).clear()
         self.find_element(*self.template_page_add_templateName_loc).send_keys("测试")
         Select(self.find_element(*self.template_page_add_type_loc)).select_by_value("F_DZPZ")
