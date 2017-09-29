@@ -49,12 +49,17 @@ def getRandomUpperStr(length):
     return ''.join(chars)
 
 
+# 固定长度小写字母
+def getRandomLowerStr(length):
+    return getRandomUpperStr(length).lower()
+
+
 # 大写字母数字
 def getRandomUpperInt(length):
     chars = []
     for i in range(length - 1):
         chars.append(random.choice(_uppChars + _nums))
-    chars.append(str(random.randint(0,9)))
+    chars.append(str(random.randint(0, 9)))
     # print(chars)
     random.shuffle(chars)
     return ''.join(chars)
@@ -101,7 +106,7 @@ def getRandomStrInt(length):
     code_list = []
     for i in range(length - 1):
         code_list.append(random.choice(_nums + _uppChars + _lowChars))
-    code_list.append(str(random.randint(0,9)))
+    code_list.append(str(random.randint(0, 9)))
     random.shuffle(code_list)
     return ''.join(code_list)
 
@@ -111,18 +116,18 @@ def getRandomStrInt(length):
 
 
 # 汉字
-def Unicode(length):
+def getRandomChine(length):
     code_list = []
     # val = random.randint(0x4E00, 0x9FA5)
     for i in range(0x4E00, 0x9FA5):
         code_list.append(chr(i))
     splice = random.sample(code_list, length)
     return ''.join(splice)
-
+#
 #
 # for i in range(100):
 #     #     # print(getRandomStr(9))
 #     #     # print(getRandomStrIntLine(9))
-#     print(getRandomStrInt(8))
-
-# print(Unicode(10))
+#     print(getRandomLowerStr(8))
+#
+# # print(Unicode(10))
