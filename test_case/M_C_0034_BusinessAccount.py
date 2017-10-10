@@ -7,6 +7,7 @@ from util import randomUtil
 
 class BusinessAccount(unittest.TestCase):
     dr=is_login()
+    flag = False
     account = randomUtil.getRandomUpperInt(5)
     print(account)
     def setUp(self,driver=dr):
@@ -93,8 +94,17 @@ class BusinessAccount(unittest.TestCase):
         hint = self.home.account_cfg_add_accoun_error(account=account)
         self.assertEqual(hint, "账号必须是5位同时包含数字和大写字母2种字符类型的组合码")
 
+    def test_z_logout(self):
+        """退出"""
+        print("退出成功")
+        self.flag = True
+
     def tearDown(self):
-        self.driver.refresh()
+        # print(self.flag)
+        if self.flag:
+            self.driver.quit()
+        else:
+            self.driver.refresh()
 
 if __name__ == "__main__":
     unittest.main()
