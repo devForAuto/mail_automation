@@ -8,13 +8,15 @@
 @desc:
 
 """
-from selenium.webdriver.common.by import By
+
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-
+from pyapilog import pyapilog
 
 class Page(object):
     bbs_url = 'https://192.168.100.32:10143'
+    # bbs_url = 'http://192.168.100.32:10909'
 
     # bbs_url = 'http://www.baidu.com' https://192.168.100.32:10143/mail/login.html
 
@@ -26,25 +28,25 @@ class Page(object):
         self.parent = parent
 
     def _open(self, url):
-        print("_open function url is " + url)
         load_url = self.base_url + url
-        print("_open function load_url is " + load_url)
+        pyapilog().info("%s 打开URL：%s" % (self, load_url))
         self.driver.get(load_url)
         assert self.on_page(url), 'did not land on %s' + load_url
 
     def find_element(self, *loc):
         try:
-            # WebDriverWait(self.driver, 10).until(lambda driver: driver.find_element(*loc).is_displayed())
+            pyapilog().info("%s 页面定位元素：%s" % (self, loc))
             return self.driver.find_element(*loc)
         except:
-            print(u"%s 页面中未能找到 %s 元素" % (self, loc))
+            pyapilog().info(u"%s 页面中未能找到 %s 元素" % (self, loc))
 
-    #下拉框
-    def select(self,*loc):
+    # 下拉框
+    def select(self, *loc):
         try:
+            pyapilog().info("%s 下拉菜单元素：%s" % (self, loc))
             return Select(self.find_element(*loc))
         except:
-            print(u"%s 页面中未能找到 %s 元素" % (self, *loc))
+            pyapilog().info(u"%s 页面中未能找到 %s 元素" % (self, loc))
 
     def page_source(self):
         return self.driver.page_source
@@ -53,13 +55,20 @@ class Page(object):
         return self.driver.find_elements(*loc)
 
     def switch_frame(self, loc):
-        return self.driver.switch_to.frame(loc)
+        try:
+            pyapilog().info("%s 切换frame元素：%s" % (self, loc))
+            WebDriverWait(self.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it(loc))
+            # return self.driver.switch_to.frame(loc)
+        except:
+            pyapilog().info(u"%s 页面中切换 %s 元素失败！" % (self, loc))
 
     def switch_parent_frame(self):
-        return self.driver.switch_to.parent_frame()
+        pyapilog().info("%s 切换父级frame！" % self)
+        self.driver.switch_to.parent_frame()
 
     def switch_frame_default(self):
-        return self.driver.switch_to.default_content()
+        pyapilog().info("%s 退出frame！" % self)
+        self.driver.switch_to.default_content()
 
     def switch_to_alter(self):
         return self.driver.switch_to_alert()
@@ -86,7 +95,9 @@ class Page(object):
         return self.driver.current_url == (self.base_url + url)
 
     def script(self, src, args):
+        pyapilog().info("%s js定位元素：%s" % (self, args))
         return self.driver.execute_script(src, args)
 
     def get_current_url(self):
         return self.driver.current_url
+#
